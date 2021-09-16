@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-with open('Getting Over It Custom Maps.html') as inf:
+with open('GOI Website (partial).html') as inf:
 	txt = inf.read()
 	soup = BeautifulSoup(txt, 'html.parser')
 
@@ -37,7 +37,7 @@ for article in articles:
 	creatb = soup.new_tag('b')
 	creatb.string = 'Creator:'
 	article.p.append(creatb)
-	article.p.append('&ensp;')
+	# article.p.append('&ensp;')
 	creatsp = soup.new_tag('span')
 	creatsp.string = creator
 	article.p.append(creatsp)
@@ -45,7 +45,7 @@ for article in articles:
 	lenb = soup.new_tag('b')
 	lenb.string = 'Length:'
 	article.p.append(lenb)
-	article.p.append('&ensp;')
+	# article.p.append('&ensp;')
 	lensp = soup.new_tag('span')
 	lensp.string = length
 	article.p.append(lensp)
@@ -57,7 +57,7 @@ for article in articles:
 # length = para[para.index('h:')+2:para.index('\n',para.index('h:'))]
 newHTML = soup.prettify(formatter=None)
 
-with open('Getting Over It Custom Maps.html', 'w') as outf:
+with open('../Getting Over It Custom Maps.html', 'w') as outf:
 	outf.write(newHTML)
 # print(creator)
 # print(length)
