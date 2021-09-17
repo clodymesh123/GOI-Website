@@ -15,12 +15,17 @@ def unembed(link):
 	return link.replace('embed/','watch?v=')
 
 def add_new_map():#mapName,creator,length,gdlink,link=''):
-	print('Add a New Map:\n')
-	mapName = input('Map Name: ')
-	creator = input('Creator: ')
-	length = input('Length: ')
+	print('\n\n***** ADD A NEW MAP *****\n\n(Enter "q" to Quit)')
+	mapName = input('Map the New Map\'s Name: ')
+	if mapName == 'q': return
+	creator = input(f'Creator of {mapName}: ')
+	if creator == 'q': return
+	length = input(f'Length of {mapName}: ')
+	if length == 'q': return
 	link = input('Video Showcase: ').rstrip('&t')
+	if link == 'q': return
 	gdlink = input('Drive Link: ')
+	if gdlink == 'q': return
 
 	if link=='':
 		embedyt = 'images/noVideo.png'
@@ -64,18 +69,18 @@ def add_new_map():#mapName,creator,length,gdlink,link=''):
 
 	mainTag.append(newArticle)
 
-def update_map_name_info():
-	print('\n*****UPDATE MAP INFO*****\n\n(Enter "q" to Quit)')
+def update_map_info():
 	Maps = soup.find_all('article')
 	while True:
-		mapName = input('\nMap Name: ')
+		print('\n\n***** UPDATE MAP INFO *****\n\n(Enter "q" to Quit)')
+		mapName = input('\nEnter Map Name: ')
 		# while True:
 		if mapName.lower() == 'q': break
 		for single_map in Maps:
 			map_name_info = single_map.a.get_text().strip()
 			# print([mapName.lower()])
 			# print(map_name_info.split())
-			if mapName.lower() in map_name_info.lower().split():
+			if mapName.lower() in map_name_info.lower().split() or mapName.lower() == map_name_info.lower():
 				# print(map_name_info)
 				spans = single_map.p.find_all('span')
 				mapCreator = spans[0].get_text().strip()
@@ -83,29 +88,30 @@ def update_map_name_info():
 				embedLink = unembed(single_map.embed['src'])
 				driveLink = single_map.a['href']
 				print(f'\nInfo about "{map_name_info}":-\n\n1) Map Name: {map_name_info}\n2) Creator: {mapCreator}\n3) Length: {mapLength}\n4) Video: {embedLink}\n5) Drive: {driveLink}')
-				print('\nChoose an option from the above, to change it (Enter 1/2/3/4). Enter "q" to exit.')
+				print('\nChoose an option from the above, to update it (Enter 1/2/3/4). Enter "q" to exit.')
 				while True:
-					print(f'\n__ Updating "{map_name_info}" Map\'s Info __\n')
+					print(f'\n<<<<< Updating "{map_name_info}" Map\'s Info >>>>>\n')
 					change_info = input('Select an Option ("q" to exit): ')
 					# print(change_info)
 					if change_info == '1':
-						new_name = input("Change Map's Name\nNew Name: ") 
+						new_name = input("__ Change Map's Name  __\nNew Name: ") 
 						single_map.a.string = new_name
 						print("Changed the Map's Name to "+new_name)
 					elif change_info == '2':
-						new_creator_name = input('Change Map Creator Name\nEnter the Name: ')
+						new_creator_name = input('__ Change Map Creator Name __\nEnter the Name: ')
 						spans[0].string = new_creator_name
 						print("Changed creator's name to: "+new_creator_name)
 					elif change_info == '3':
-						new_length = input('Change Map Length\nEnter the Length: ')
+						new_length = input('__ Change Map Length __\nEnter the Length: ')
 						spans[1].string = new_length
 						print("Changed Map's length to: "+new_length)
 					elif change_info == '4':
-						new_ytlink = input('Change Video Showcase Link\nEnter the new link: ')
+						new_ytlink = input('__ Change Video Showcase Link __\nEnter the new link: ')
+						if new_ytlink=='':new_ytlink = 'images/noVideo.png'
 						single_map.embed['src'] = embed(new_ytlink)
 						print("Changed the YouTube link to: "+new_ytlink)
 					elif change_info == '5':
-						new_gdlink = input('Change Google Drive Link\nEnter the new link: ')
+						new_gdlink = input('__ Change Google Drive Link __\nEnter the new link: ')
 						single_map.a['href'] = new_gdlink
 						print("Changed the Drive's link to: "+new_gdlink)
 					elif change_info.lower() == 'q': break
@@ -113,14 +119,51 @@ def update_map_name_info():
 				break
 		else: print('INVALID MAP!')
 
+def delete_map():
+	Maps = soup.find_all('article')
+	while True:
+		print('\n***** DELETE A MAP *****\n\n(Enter "q" to Quit)')
+		mapName = input('\nEnter Map Name: ')
+		# while True:
+		if mapName.lower() == 'q': break
+		for single_map in Maps:
+			if single_map: map_name_info = single_map.a.get_text().strip()
+			else: continue
+			# print([mapName.lower()])
+			# print(map_name_info.split())
+			if mapName.lower() in map_name_info.lower().split():
+				while True:
+					sure = input(f'\nAre you sure you want to delete the map, "{map_name_info}"? (y/n):')
+					if sure == 'y':
+						single_map.decompose()
+						print(f'!!!!! Successfully deleted the map, "{map_name_info}" !!!!!')
+						break
+					elif sure == 'n':
+						print('Map Deletion Cancelled!')
+						break
+					else: print('Enter only "y" or "n"')
+				break
+		else: print('INVALID MAP!')
 
-# add_new_map(mapName,creator,length,gdlink,link)
 
-update_map_name_info()
+
+while True:
+	print('\n\n********** GOI CUSTOM MAPS WEBSITE MANAGER **********\n')
+	print('Choose from below ("q" to exit):\n1) Add a new Map\n2) Update Map\'s Info\n3) Delete a Map')
+	choice = input('\nSelect an option (1 or 2 or 3): ')
+	if choice == '1':
+		add_new_map()
+	elif choice == '2':
+		update_map_info()
+	elif choice == '3':
+		delete_map()
+	elif choice == 'q': break
+	else: print('INVALID OPTION!') 
+	
 
 # print(newArticle.prettify(formatter=None))
 newHTML = soup.prettify(formatter=None)
 
-with open('Added Article.html', 'w') as outf:
+with open('Managed Website.html', 'w') as outf:
 	outf.write(newHTML)
 outf.close()
