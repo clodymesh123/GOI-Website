@@ -5,6 +5,10 @@ with open('Getting Over It Custom Maps.html') as inf:
 	soup = BeautifulSoup(txt, 'html.parser')
 inf.close()
 
+with open('Backup.html', 'w') as bk:
+	bk.write(soup.prettify())
+bk.close()
+
 def embed(link):
 	if '?t' in link: link = link.replace('?t', '?start')
 	embeded = link.replace('watch?v=','embed/')
@@ -164,6 +168,6 @@ while True:
 # print(newArticle.prettify(formatter=None))
 newHTML = soup.prettify(formatter=None)
 
-with open('Managed Website.html', 'w') as outf:
+with open('Getting Over It Custom Maps.html', 'w') as outf:
 	outf.write(newHTML)
 outf.close()
