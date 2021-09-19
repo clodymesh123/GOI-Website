@@ -7,6 +7,9 @@
   </title>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <link href="styles.css" rel="stylesheet" type="text/css"/>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+  <script crossorigin="anonymous" src="https://kit.fontawesome.com/f325a34ebe.js">
+  </script>
  </head>
  <body>
   <header>
@@ -55,6 +58,42 @@
     </a>
    </nav>
   </header>
+  <div style="height: 83px;">
+   <span id="alphaSort" onclick="alphaSort()">
+    <i class="fas fa-sort-alpha-down">
+    </i>
+   </span>
+   <div class="dropdown" id="filterBy">
+    <i class="fas fa-filter">
+    </i>
+    <span class="dropbtn" style="font-size:80%">
+     Filter By
+    </span>
+    <div class="dropdown-content" onmouseenter="scrollBack(this)">
+     <div class="sub" onmouseover="modifyDisplay(this)">
+      <div class="subbtn" onclick="deselect_content_filter(this)">
+       Creator
+       <i aria-hidden="true" class="fa fa-wrench">
+       </i>
+      </div>
+      <div class="sub-menu">
+      </div>
+     </div>
+     <div class="sub" onmouseover="modifyDisplay(this)">
+      <div class="subbtn" onclick="deselect_content_filter(this)">
+       Map Length
+       <i class="fas fa-ruler-combined">
+       </i>
+      </div>
+      <div class="sub-menu">
+       <!-- <div>Link 1</div>
+        <div>Link 2</div>
+        <div>Link 3</div> -->
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
   <main>
    <article>
     <div>
@@ -596,31 +635,6 @@
      </b>
      <span>
       Billy8475
-     </span>
-     <br/>
-     <b>
-      Length:
-     </b>
-     <span>
-      Medium
-     </span>
-    </p>
-   </article>
-   <article>
-    <div>
-     <embed src="https://youtube.com/embed/0z7jTo9cfgk"/>
-    </div>
-    <h2 title="Download The Trees">
-     <a href="https://drive.google.com/drive/folders/1TrEfsaU420OUooLRTZKe4EotyYV1qtKG?usp=sharing" target="_blank">
-      The Trees
-     </a>
-    </h2>
-    <p>
-     <b>
-      Creator:
-     </b>
-     <span>
-      Happyfied
      </span>
      <br/>
      <b>
@@ -1182,5 +1196,7 @@
     </p>
    </article>
   </main>
+  <script src="script.js">
+  </script>
  </body>
 </html>
