@@ -7,7 +7,8 @@
   </title>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <link href="styles.css" rel="stylesheet" type="text/css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+  <script src="https://kit.fontawesome.com/f325a34ebe.js" crossorigin="anonymous"></script>
  </head>
  <body>
   <header>
@@ -56,8 +57,57 @@
     </a>
    </nav>
   </header>
-  <div style="height: 75px;">
-   <span id="alphaSort" onclick="alphaSort()"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+  <div style="height: 83px;">
+   <span id="alphaSort" onclick="alphaSort()"><i class="fas fa-sort-alpha-down"></i></span>
+
+   <div id="filterBy" class="dropdown">
+    <i class="fas fa-filter"></i>
+     <span class="dropbtn" style="font-size:80%">Filter By</span>
+     <div class="dropdown-content" onmouseenter="scrollBack(this)">
+      <div class="sub" onmouseover="modifyDisplay(this)">
+       <div class="subbtn" onclick="deselect_creator_filter(this)">Creator <i class="fa fa-wrench" aria-hidden="true"></i></div>
+       <div class="sub-menu">
+        <!-- <div>Link 1</div>
+        <div>Link 2</div>
+        <div>Link 3</div>
+        <div>Link 1</div>
+        <div>Link 2</div>
+        <div>Link 3</div>
+        <div>Link 1</div>
+        <div>Link 2</div>
+        <div>Link 3</div>
+        <div>Link 1</div>
+        <div>Link 2</div>
+        <div>Link 3</div>
+        <div>Link 1</div>
+        <div>Link 2</div>
+        <div>Link 3</div> -->
+       </div>
+      </div>
+      <div class="sub" onmouseover="modifyDisplay(this)">
+       <div class="subbtn">Map Length <i class="fas fa-ruler-combined"></i></div>
+       <div class="sub-menu">
+        <div>Link 1</div>
+        <div>Link 2</div>
+        <div>Link 3</div>
+       </div>
+      </div>
+     </div>
+    </div>
+<!--    <div id="filterBy">
+    <div class="dropbtn">Filter By</div>
+    <div class="dropdown-content">
+     <div class="sub" onmouseover="modifyDisplay(this)">
+      <div class="subbtn">Creator</div>
+      <div class="sub-menu">
+       <div>Link 1</div>
+       <div>Link 2</div>
+       <div>Link 3</div>
+      </div>
+     </div>
+    </div>
+   </div>
+ -->
   </div>
   <main>
    <article>

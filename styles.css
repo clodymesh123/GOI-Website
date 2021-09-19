@@ -100,8 +100,7 @@ nav>a>span{
   font-size: 150%;
   font-weight: bold;
   background-color: #195cc1;
-  margin: 20px 20px 0px;
-  float: right;
+  margin: 20px 10px 0px 30px;
   border-radius: 5px;
   padding: 7px 15px 6px;
   transition: 0.2s;
@@ -116,6 +115,117 @@ nav>a>span{
   transition: 0s;
   background-color: black;
 }
+#filterBy{
+  cursor: pointer;
+  color: white;
+  font-size: 150%;
+  margin: 20px  10px;
+  padding: 7px 15px 6px;
+  transition: 0.2s;
+  /*border: 2px solid #cbe0ff;*/
+}
+.dropbtn {
+  color: white;
+  border: none;
+}
+
+.dropdown {
+  border-radius: 5px;
+  background-color: #195cc1;
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  font-weight: bold;
+  font-size: 55%;
+  display: none;
+  position: absolute;
+  background-color: #e1edff;
+  min-width: 97%;
+  margin-left:-15px ;
+  margin-top: 6px;
+  box-shadow: 0px 8px 16px 0px #3099f233;
+  z-index: 1;
+  border: 2px solid #3e87f5;
+  border-top: 0px;
+  border-radius: 0 0 5px 5px;
+}
+
+.dropdown-content>div {
+  color: #10418b;
+  padding: 10px 14px;
+  text-decoration: none;
+  display: block;
+  transition: 0.2s;
+}
+
+.dropdown-content>.sub:first-child .sub-menu{
+  height: 250px;
+}
+
+.sub{
+  position: relative;
+  display:inline-block;
+}
+
+.sub>div>i{
+  float: right;
+}
+
+.sub-menu {
+  font-weight: normal;
+  font-size: 90%;
+  display: none;
+  background-color: #e1edff;
+  min-width: 100%;
+  box-shadow: 0px 8px 16px 0px #3099f233;
+  z-index: 1;
+  margin-top:-29px;
+  margin-left:115px;
+  border: 2px solid #3e87f5;
+  border-radius: 0 5px 5px 5px;
+  overflow: auto;
+}
+
+.sub-menu>div {
+  /*color: black;*/
+  padding: 10px 14px;
+  text-decoration: none;
+  display: block;
+  transition: 0.2s;
+}
+.selected-creator{
+  background-color: #b4ffc7;
+}
+.selected-creator:hover{
+  background-color: #91eaa8;
+}
+.sub-menu>div:hover {
+  background-color: #cbe0ff;
+  border-radius: 0 5px 5px 5px;
+}
+
+.dropdown-content>div:hover {
+  background-color: #cbe0ff;
+  border-radius: 0 0 0 5px;
+}
+.dropdown-content:hover {border-radius: 0 0 0 5px;}
+
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .sub-menu {display: none;}
+.sub:hover .sub-menu{
+  position:absolute;
+  display:block
+}
+
+.dropdown:hover {
+  background-color: #3e87f5;
+  box-shadow: 0px -3px 18px 0px #3099f294;
+  border-radius: 5px 5px 0px 0px;
+}
+
+
 
 main{
   margin: 0 -5px 50px;
