@@ -1,6 +1,61 @@
 var notReverse = true, creatorSelected = false, lengthSelected = false, getAlphaMain = true;
 mainTag = document.getElementsByTagName('main')[0];
 
+function embed(link) {
+	link = String(link)
+	if (link.includes('?t'))
+		link = link.replace('?t', '?start');
+	embeded = link.replace('watch?v=','embed/');
+	if (link == embeded)
+		embeded = link.replace('youtu.be', 'youtube.com/embed');
+	return embeded;
+}
+
+function fetchJSON() {
+	fetch('maps.json')
+	.then(response=>response.json())
+	.then(data=>{
+			// body = document.getElementsByTagName('body')[0];
+			// main = document.getElementsByTagName('main')[0];
+			// body.appendChild(mainTag);
+			for (var i = 0; i < data.length; i++) {
+				newArticle = document.createElement('article');
+				divTag = document.createElement('div');
+				embedTag = document.createElement('embed');
+				h2Tag = document.createElement('h2');
+				anchTag = document.createElement('a');
+				paraTag = document.createElement('p');
+				boldTag1 = document.createElement('b');
+				spanTag1 = document.createElement('span');
+				brTag = document.createElement('br');
+				boldTag2 = document.createElement('b');
+				spanTag2 = document.createElement('span');
+				embedTag.setAttribute('src',embed(data[i].video));
+				divTag.appendChild(embedTag);
+				h2Tag.setAttribute('title','Download '+data[i].map);
+				anchTag.setAttribute('href',data[i].drive);
+				anchTag.setAttribute('target','_blank');
+				anchTag.innerHTML=data[i].map;
+				h2Tag.appendChild(anchTag);
+				boldTag1.innerHTML='Creator:';
+				spanTag1.innerHTML=data[i].creator;
+				boldTag2.innerHTML='Length:';
+				spanTag2.innerHTML=data[i].length;
+				paraTag.appendChild(boldTag1);
+				paraTag.appendChild(spanTag1);
+				paraTag.appendChild(brTag);
+				paraTag.appendChild(boldTag2);
+				paraTag.appendChild(spanTag2);
+				newArticle.appendChild(divTag);
+				newArticle.appendChild(h2Tag);
+				newArticle.appendChild(paraTag);
+				mainTag.appendChild(newArticle);
+			}
+			// body.appendChild(main);
+		}
+	)
+}
+
 function alphaSort() {
 	oldMain = document.getElementsByTagName('main')[0];
 	mapNames = [];
@@ -44,59 +99,63 @@ function alphaSort() {
 spans = mainTag.getElementsByTagName('span');
 
 creators = []
-for(i=0;i<spans.length/2;i++){
-    creators.push(spans[i*2].innerHTML.trim())
-}
-
-creators.sort();
-histo = {}
-
-for(i=0;i<creators.length;i++){
-    if(!(creators[i] in histo)){
-        histo[creators[i]] = 1;
-    }
-    else{
-        histo[creators[i]] += 1;
-    }
-}
-
-creators = []
-for(i in histo){
-    creators.push(i)
-}
+lengths = []
 creators_lc = []
-for (var i = 0; i < creators.length; i++) {
-	creators_lc[i] = creators[i].toLowerCase();
-	creators_lc.sort();
-}
-
-
-lengths = []
-for(i=1;i<spans.length;i+=2){
-    lengths.push(spans[i].innerHTML.trim())
-}
-
-lengths.sort();
-histo = {}
-
-for(i=0;i<lengths.length;i++){
-    if(!(lengths[i] in histo)){
-        histo[lengths[i]] = 1;
-    }
-    else{
-        histo[lengths[i]] += 1;
-    }
-}
-
-lengths = []
-for(i in histo){
-    lengths.push(i)
-}
 lengths_lc = []
-for (var i = 0; i < lengths.length; i++) {
-	lengths_lc[i] = lengths[i].toLowerCase();
-	lengths_lc.sort();
+
+function conent_list() {
+	for(i=0;i<spans.length/2;i++){
+	    creators.push(spans[i*2].innerHTML.trim())
+	}
+
+	creators.sort();
+	histo = {}
+
+	for(i=0;i<creators.length;i++){
+	    if(!(creators[i] in histo)){
+	        histo[creators[i]] = 1;
+	    }
+	    else{
+	        histo[creators[i]] += 1;
+	    }
+	}
+
+	creators = []
+	for(i in histo){
+	    creators.push(i)
+	}
+	for (var i = 0; i < creators.length; i++) {
+		creators_lc[i] = creators[i].toLowerCase();
+		creators_lc.sort();
+	}
+
+
+	for(i=1;i<spans.length;i+=2){
+	    lengths.push(spans[i].innerHTML.trim())
+	}
+
+	lengths.sort();
+	histo = {}
+
+	for(i=0;i<lengths.length;i++){
+	    if(!(lengths[i] in histo)){
+	        histo[lengths[i]] = 1;
+	    }
+	    else{
+	        histo[lengths[i]] += 1;
+	    }
+	}
+
+	lengths = []
+	for(i in histo){
+	    lengths.push(i)
+	}
+	for (var i = 0; i < lengths.length; i++) {
+		lengths_lc[i] = lengths[i].toLowerCase();
+		lengths_lc.sort();
+	}
 }
+
 // sorted_lengths = [];
 // for (i = 0; i < lengths_lc.length; i++) {
 // 	for (var j = 0; j < lengths.length; j++) {
@@ -122,8 +181,6 @@ function add_subMenu_content(content, lc, zeroOne) {
 	}
 }
 
-add_subMenu_content(creators,creators_lc,0);
-add_subMenu_content(lengths,lengths_lc,1);
 
 var previous_creator='', previous_length='';
 function filter_by_content(content_tag, zeroOne) {
@@ -228,7 +285,8 @@ function deselect_content_filter(subbtn) {
 
 function scrollBack(dropdown) {
    let subMenu = dropdown.getElementsByClassName('sub-menu');
-   subMenu[0].scrollTop = 0;
+   subMenu[0].scrollTo(0,0);
+   subMenu[1].scrollTo(0,0);
 }
 function modifyDisplay(sub) {
    sub.getElementsByClassName('sub-menu')[0].style.display = "";
@@ -247,6 +305,10 @@ function modifyDisplay(sub) {
  prevScrollpos = currentScrollPos;
 }
 
-
-alphaSort();
-// add_creators();
+fetchJSON();
+setTimeout(function(){
+	conent_list();
+	add_subMenu_content(creators,creators_lc,0);
+	add_subMenu_content(lengths,lengths_lc,1);
+	alphaSort();
+}, 1000);
